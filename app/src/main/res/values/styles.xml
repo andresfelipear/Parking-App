@@ -7,9 +7,23 @@
         <item name="fontFamily">@font/red_hat_display_regular</item>
     </style>
 
+    <style name="ParkingApp.TextStyleMain">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="fontFamily">@font/red_hat_display_regular</item>
+    </style>
+
     <style name="ParkingApp.TextStyle.Title">
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.2</item>
+        <item name="fontFamily">@font/dangrek_regular</item>
+    </style>
+
+    <style name="ParkingApp.TextStyle.Subtitle">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:letterSpacing">0.5</item>
+        <item name="android:textColor">@color/secondary</item>
+        <item name="fontFamily">@font/candal_regular</item>
     </style>
 
     <style name="ParkingApp.TextStyle.Link">

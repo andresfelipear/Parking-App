@@ -4,14 +4,18 @@
     <dimen name="space_small">8dp</dimen>
     <dimen name="space_medium">16dp</dimen>
     <dimen name="space_large">24dp</dimen>
-    <dimen name="space_xlarge">36dp</dimen>
+    <dimen name="space_xlarge">32dp</dimen>
+    <dimen name="space_xxlarge">48dp</dimen>
+    <dimen name="space_xxxlarge">72dp</dimen>
 
     <dimen name="text_size_small">12sp</dimen>
-    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
     <dimen name="text_size_big">32sp</dimen>
 
     <dimen name="radius_small">12dp</dimen>
+    <dimen name="radius_xsmall">8dp</dimen>
 
     <dimen name="button_standard">48dp</dimen>
+    <dimen name="icon_standard">56dp</dimen>
 
 </resources>

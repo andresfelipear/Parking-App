@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /**
         var loginButton: Button
 
         loginButton = findViewById(R.id.login_main)
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
             setContentView(R.layout.activity_login)
 
         }
+        */
 
     }
 }

@@ -6,4 +6,5 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="feat_main_login">Login\n</string>
+    <string name="feat_main_signup">Sign Up</string>
 </resources>
