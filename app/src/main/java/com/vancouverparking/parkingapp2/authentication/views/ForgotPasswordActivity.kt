@@ -1,4 +1,4 @@
-package com.vancouverparking.parkingapp2.views.authentication.forgotPassword
+package com.vancouverparking.parkingapp2.authentication.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

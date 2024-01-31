@@ -1,9 +1,8 @@
-package com.vancouverparking.parkingapp2.viewmodels.LoginViewModel
+package com.vancouverparking.parkingapp2.authentication.viewmodels
 
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vancouverparking.parkingapp2.data.local.repositories.LocalAuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,6 +1,6 @@
-package com.vancouverparking.parkingapp2.data.local.repositories
+package com.vancouverparking.parkingapp2.authentication.data.remote.repositories
 
-class DefaultLocalAuthRepository: LocalAuthRepository
+class DefaultRemoteAuthRepository: RemoteAuthRepository
 {
     override suspend fun login(email: String,
                                password: String): String?
@@ -8,7 +8,7 @@ class DefaultLocalAuthRepository: LocalAuthRepository
         TODO("Not yet implemented")
     }
 
-    override suspend fun singUp(email: String,
+    override suspend fun signUp(email: String,
                                 password: String): String?
     {
         TODO("Not yet implemented")

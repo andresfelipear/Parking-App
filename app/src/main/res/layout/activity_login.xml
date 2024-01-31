@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/space_large"
-    tools:context=".views.authentication.login.LoginActivity">
+    tools:context=".authentication.views.LoginActivity">
 
     <ImageView
         android:id="@+id/icon"

@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.vancouverparking.parkingapp2.views.authentication.login.LoginActivity
-import com.vancouverparking.parkingapp2.views.authentication.signup.SignUpActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

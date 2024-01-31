@@ -49,9 +49,15 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    //Image use and optimization
     implementation("com.github.bumptech.glide:glide:4.15.0")
+
     implementation("com.squareup.okhttp3:okhttpL4.10.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
+
+    //Use http request
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")

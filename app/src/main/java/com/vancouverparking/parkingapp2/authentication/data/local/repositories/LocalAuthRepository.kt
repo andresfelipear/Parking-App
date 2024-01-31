@@ -1,4 +1,4 @@
-package com.vancouverparking.parkingapp2.data.local.repositories
+package com.vancouverparking.parkingapp2.authentication.data.local.repositories
 
 interface LocalAuthRepository
 {
