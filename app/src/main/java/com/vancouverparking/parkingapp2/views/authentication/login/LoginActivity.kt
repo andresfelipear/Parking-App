@@ -3,10 +3,12 @@ package com.vancouverparking.parkingapp2.views.authentication.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.textfield.TextInputEditText
 import com.vancouverparking.parkingapp2.R
 import com.vancouverparking.parkingapp2.databinding.ActivityLoginBinding
+import com.vancouverparking.parkingapp2.viewmodels.LoginViewModel.LoginState
 import com.vancouverparking.parkingapp2.viewmodels.LoginViewModel.LoginViewModel
 import com.vancouverparking.parkingapp2.views.authentication.forgotPassword.ForgotPasswordActivity
 
@@ -30,6 +32,44 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        binding?.login?.isEnabled = isValidForm()
+    }
+
+    private fun isValidForm(): Boolean {
+        return binding?.email?.text.toString().isNotEmpty() &&
+                binding?.password?.text.toString().isNotEmpty()
+    }
+
+    private fun invalidate(state: LoginState) {
+        if (state.isLoading) {
+            Toast.makeText(
+                this,
+                R.string.feat_login_loading,
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            // TODO: If loading dialog is shown, cancel it
+        }
+        if (state.error != null) {
+            Toast.makeText(
+                this,
+                getString(R.string.feat_login_error, state.error.toString()),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        if (state.token != null) {
+            finish()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
 
     private fun handleLogin()
     {
