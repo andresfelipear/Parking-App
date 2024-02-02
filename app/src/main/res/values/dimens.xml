@@ -17,5 +17,6 @@
 
     <dimen name="button_standard">48dp</dimen>
     <dimen name="icon_standard">56dp</dimen>
+    <dimen name="spinner_flag_size">24dp</dimen>
 
 </resources>

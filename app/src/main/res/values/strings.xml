@@ -10,6 +10,8 @@
     <string name="feat_login_loading">Loading...</string>
     <string name="feat_login_error">Error: %s</string>
     <string name="feat_signup_signup">Sign Up</string>
-    <string name="feat_signup_hint_phoneNumber">Enter your phone number</string>
+    <string name="feat_signup_hint_phoneNumber">Enter phone...</string>
     <string name="feat_signup_continue">Continue</string>
+    <string name="feat_signup_enterPhone">Enter your phone number</string>
+    <string name="feat_spinner_countries_code_example">+1</string>
 </resources>
