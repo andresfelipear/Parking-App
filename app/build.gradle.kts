@@ -52,7 +52,6 @@ dependencies {
     //Image use and optimization
     implementation("com.github.bumptech.glide:glide:4.15.0")
 
-    implementation("com.squareup.okhttp3:okhttpL4.10.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
 
     //Use http request
