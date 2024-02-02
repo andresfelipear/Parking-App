@@ -31,4 +31,8 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
+
+    <style name="ParkingApp.Widget.Spinner">
+        <item name="android:background">@drawable/spinner_border</item>
+    </style>
 </resources>

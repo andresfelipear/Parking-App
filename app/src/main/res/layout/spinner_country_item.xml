@@ -13,7 +13,7 @@
         android:layout_width="@dimen/spinner_flag_size"
         android:layout_height="@dimen/spinner_flag_size"
         android:layout_marginEnd="@dimen/space_small"
-        tools:src="@tools:sample/avatars[0]"/>
+        tools:src="@drawable/ic_flag_canada"/>
 
     <TextView
         android:id="@+id/countryNameTextView"

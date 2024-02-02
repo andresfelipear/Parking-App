@@ -48,15 +48,30 @@
         app:layout_constraintTop_toBottomOf="@id/signup"
         />
 
+    <Spinner
+        android:id="@+id/spinnerCountries"
+        style="@style/ParkingApp.Widget.Spinner"
+        android:spinnerMode="dialog"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="@dimen/space_small"
+        app:layout_constraintTop_toBottomOf="@id/enterPhone"
+        app:layout_constraintEnd_toStartOf="@id/phoneNumberInputLayout"
+        app:layout_constraintBottom_toBottomOf="@id/phoneNumberInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/spinner_country_item"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phoneNumberInputLayout"
         style="@style/ParkingApp.Widget.TextInputLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/feat_signup_hint_phoneNumber"
         app:endIconMode="clear_text"
         app:layout_constraintTop_toBottomOf="@id/enterPhone"
-        app:startIconDrawable="@drawable/ic_phone">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/enterPhone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phoneNumber"
