@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SignUpVerification"
+    tools:context=".authentication.views.SignUpVerification"
     android:padding="@dimen/space_large">
 
     <ImageView
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
     <TextView
-        android:id="@+id/login"
+        android:id="@+id/signup"
         style="@style/ParkingApp.Widget.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,14 +39,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appName" />
 
+    <TextView
+        android:id="@+id/enterCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feat_signup_enterCode"
+        android:layout_marginTop="@dimen/space_xlarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signup"
+        />
+
+    <!--
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/verificationCodeInputLayout"
         style="@style/ParkingApp.Widget.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_xlarge"
         app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@id/login"
+        app:layout_constraintTop_toBottomOf="@id/enterCode"
         app:startIconDrawable="@drawable/ic_phone">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -56,16 +66,50 @@
             android:layout_height="wrap_content"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
+    -->
+
+    <LinearLayout
+        android:id="@+id/layoutOtpCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/enterCode"
+        app:layout_constraintStart_toStartOf="parent">
+        <EditText
+            android:id="@+id/codeBox1"
+            style="@style/ParkingApp.Widget.EditText"
+            android:text="1"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/codeBox2"
+            style="@style/ParkingApp.Widget.EditText"
+            android:text="2"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/codeBox3"
+            style="@style/ParkingApp.Widget.EditText"
+            android:text="3"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/codeBox4"
+            style="@style/ParkingApp.Widget.EditText"
+            android:text="4"
+            android:imeOptions="actionNext"/>
+
+    </LinearLayout>
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginButton"
+        android:id="@+id/continueSignUpButton"
         style="@style/ParkingApp.Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_standard"
         android:layout_marginTop="@dimen/space_xlarge"
         android:elevation="0dp"
         android:text="@string/feat_signup_continue"
-        app:layout_constraintTop_toBottomOf="@id/verificationCodeInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/layoutOtpCode"
         tools:ignore="DuplicateSpeakableTextCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,4 +35,16 @@
     <style name="ParkingApp.Widget.Spinner">
         <item name="android:background">@drawable/spinner_border</item>
     </style>
+
+    <style name="ParkingApp.Widget.EditText">
+        <item name="android:layout_marginEnd">@dimen/space_small</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxLength">1</item>
+        <item name="maxLines">1</item>
+        <item name="android:paddingStart">@dimen/space_medium</item>
+        <item name="paddingEnd">@dimen/space_medium</item>
+        <item name="android:inputType">numberDecimal</item>
+    </style>
 </resources>

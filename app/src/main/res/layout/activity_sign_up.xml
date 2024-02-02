@@ -51,8 +51,9 @@
     <Spinner
         android:id="@+id/spinnerCountries"
         style="@style/ParkingApp.Widget.Spinner"
-        android:spinnerMode="dialog"
-        android:layout_width="0dp"
+        android:spinnerMode="dropdown"
+        android:layout_width="wrap_content"
+        android:minWidth="60dp"
         android:layout_height="0dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="@dimen/space_small"
@@ -60,7 +61,7 @@
         app:layout_constraintEnd_toStartOf="@id/phoneNumberInputLayout"
         app:layout_constraintBottom_toBottomOf="@id/phoneNumberInputLayout"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/spinner_country_item"/>
+        tools:listitem="@layout/item_country_spinner"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phoneNumberInputLayout"
@@ -71,7 +72,7 @@
         app:endIconMode="clear_text"
         app:layout_constraintTop_toBottomOf="@id/enterPhone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/enterPhone">
+        app:layout_constraintStart_toEndOf="@id/spinnerCountries">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phoneNumber"
@@ -83,7 +84,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginButton"
+        android:id="@+id/continueSignUpButton"
         style="@style/ParkingApp.Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_standard"

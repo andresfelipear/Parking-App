@@ -14,4 +14,5 @@
     <string name="feat_signup_continue">Continue</string>
     <string name="feat_signup_enterPhone">Enter your phone number</string>
     <string name="feat_spinner_countries_code_example">+1</string>
+    <string name="feat_signup_enterCode">Enter your verification code</string>
 </resources>

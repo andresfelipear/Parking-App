@@ -1,7 +1,8 @@
-package com.vancouverparking.parkingapp2
+package com.vancouverparking.parkingapp2.authentication.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.vancouverparking.parkingapp2.R
 
 class SignUpVerification : AppCompatActivity()
 {
