@@ -18,5 +18,10 @@
     <dimen name="button_standard">48dp</dimen>
     <dimen name="icon_standard">56dp</dimen>
     <dimen name="spinner_flag_size">24dp</dimen>
+    <dimen name="radius_xxsmall">6dp</dimen>
+    <dimen name="space_button_country">22dp</dimen>
+
+    <dimen name="width_edit_text_code_button">32dp</dimen>
+    <dimen name="height_edit_text_code_button">40dp</dimen>
 
 </resources>

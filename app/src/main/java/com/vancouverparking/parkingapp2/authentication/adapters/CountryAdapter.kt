@@ -44,13 +44,14 @@ class CountryAdapter(
             binding = ItemCountrySpinnerBinding.bind(convertView)
         }
 
-        binding.countryCodeTextView.text = country?.countryCode
-
-        country?.flagImage?.let { imageUrl ->
+        country?.let { it ->
             Glide.with(context)
-                .load(imageUrl)
+                .load(it.flagImage)
                 .into(binding.flagImageView)
         }
+        binding.countryCodeTextView.text = country?.countryCode
+
+
 
         return binding.root
     }

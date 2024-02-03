@@ -22,7 +22,7 @@
     <style name="ParkingApp.TextStyle.Subtitle">
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:letterSpacing">0.5</item>
-        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textColor">@color/colorSecondary</item>
         <item name="fontFamily">@font/candal_regular</item>
     </style>
 

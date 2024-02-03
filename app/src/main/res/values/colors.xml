@@ -4,10 +4,13 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="colorAccent">#365B6D</color>
-    <color name="secondary">#FEFEFE</color>
+    <color name="colorDisable">#ACB3BF</color>
+    <color name="colorSecondary">#FEFEFE</color>
 
     <color name="textTitlePrimary">@color/colorAccent</color>
     <color name="textPrimary">@color/colorAccent</color>
+    <color name="textDisable">@color/colorSecondary</color>
+
     <color name="textSecondary">#4267B2</color>
     <color name="textLink">@color/colorAccent</color>
     <color name="separator">#E4E4E4</color>

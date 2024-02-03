@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:minWidth="60dp"
         android:layout_height="0dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/space_button_country"
         android:layout_marginEnd="@dimen/space_small"
         app:layout_constraintTop_toBottomOf="@id/enterPhone"
         app:layout_constraintEnd_toStartOf="@id/phoneNumberInputLayout"
@@ -68,6 +68,7 @@
         style="@style/ParkingApp.Widget.TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
         android:hint="@string/feat_signup_hint_phoneNumber"
         app:endIconMode="clear_text"
         app:layout_constraintTop_toBottomOf="@id/enterPhone"
@@ -79,7 +80,7 @@
             style="@style/ParkingApp.Widget.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
