@@ -12,7 +12,9 @@ class DefaultRemoteAuthRepository(
     override suspend fun login(email: String,
                                password: String): String?
     {
+
         val loginRequest = LoginRequest(email, password)
+
         return try
         {
             val response = api.login(loginRequest)

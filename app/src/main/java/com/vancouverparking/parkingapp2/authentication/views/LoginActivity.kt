@@ -5,11 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.textfield.TextInputEditText
 import com.vancouverparking.parkingapp2.R
 import com.vancouverparking.parkingapp2.databinding.ActivityLoginBinding
 import com.vancouverparking.parkingapp2.authentication.viewmodels.LoginState
 import com.vancouverparking.parkingapp2.authentication.viewmodels.LoginViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity()
 {
@@ -33,12 +39,29 @@ class LoginActivity : AppCompatActivity()
                 ForgotPasswordActivity::class.java))
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collectLatest{ state ->
+                    invalidate(state)
+                }
+            }
+        }
+
+
+        binding?.email?.doAfterTextChanged {
+            binding?.loginButton?.isEnabled = isValidForm()
+        }
+
+        binding?.password?.doAfterTextChanged {
+            binding?.loginButton?.isEnabled = isValidForm()
+        }
+
     }
 
     override fun onResume()
     {
         super.onResume()
-        binding?.login?.isEnabled = isValidForm()
+        binding?.loginButton?.isEnabled = isValidForm()
     }
 
     private fun isValidForm(): Boolean
@@ -67,14 +90,14 @@ class LoginActivity : AppCompatActivity()
         {
             Toast.makeText(
                 this,
-                getString(R.string.feat_login_error,
-                    state.error.toString()),
+                R.string.feat_login_bad_credentials,
                 Toast.LENGTH_SHORT
             )
                 .show()
         }
         if(state.token != null)
         {
+            println("Login Success!")
             finish()
         }
     }

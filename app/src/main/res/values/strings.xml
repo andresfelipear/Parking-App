@@ -17,4 +17,6 @@
     <string name="feat_signup_enterCode">Enter your verification code</string>
     <string name="feat_signup_resend_code">You can resend in (59s)</string>
     <string name="feat_signup_username">Full Name</string>
+    <string name="feat_login_bad_credentials">Wrong Credentials. Try Again</string>
+    <string name="feat_login_accepted">"Login Success! "</string>
 </resources>
