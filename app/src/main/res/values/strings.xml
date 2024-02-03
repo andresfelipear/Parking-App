@@ -16,4 +16,5 @@
     <string name="feat_spinner_countries_code_example">+1</string>
     <string name="feat_signup_enterCode">Enter your verification code</string>
     <string name="feat_signup_resend_code">You can resend in (59s)</string>
+    <string name="feat_signup_username">Full Name</string>
 </resources>

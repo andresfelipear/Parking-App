@@ -1,5 +1,6 @@
 package com.vancouverparking.parkingapp2.authentication.views
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -27,6 +28,9 @@ class SignUpVerificationActivity : AppCompatActivity()
 
         setBoxFocusListeners()
         setBoxTextListeners()
+        binding.continueSignUpButton.setOnClickListener {
+            startActivity(Intent(this, SignUpLastStep::class.java))
+        }
     }
 
     private fun setBoxFocusListeners()
