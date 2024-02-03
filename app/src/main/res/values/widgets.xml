@@ -7,6 +7,8 @@
         <item name="android:textColor">@color/colorSecondary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">@style/ParkingApp.TextStyle</item>
+        <item name="android:layout_marginStart">@dimen/space_large</item>
+        <item name="android:layout_marginEnd">@dimen/space_large</item>
     </style>
 
     <style name="ParkingApp.Widget.MainButton">
@@ -30,6 +32,8 @@
         <item name="colorControlNormal">@color/separator</item>
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:layout_marginStart">@dimen/space_large</item>
+        <item name="android:layout_marginEnd">@dimen/space_large</item>
     </style>
 
     <style name="ParkingApp.Widget.Spinner">
@@ -46,6 +50,21 @@
         <item name="maxLines">1</item>
         <item name="android:inputType">numberDecimal</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ParkingApp.Widget.AppIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_xxlarge</item>
+        <item name="contentDescription">@null</item>
+        <item name="android:src">@drawable/ic_car</item>
+    </style>
+
+    <style name="ParkingApp.Widget.HelperTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_xlarge</item>
+        <item name="android:layout_marginStart">@dimen/space_large</item>
     </style>
 
 </resources>

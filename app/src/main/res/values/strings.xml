@@ -19,4 +19,5 @@
     <string name="feat_signup_username">Full Name</string>
     <string name="feat_login_bad_credentials">Wrong Credentials. Try Again</string>
     <string name="feat_login_accepted">"Login Success! "</string>
+    <string name="cancel">Cancel Button</string>
 </resources>

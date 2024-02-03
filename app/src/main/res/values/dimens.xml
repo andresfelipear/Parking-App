@@ -21,7 +21,8 @@
     <dimen name="radius_xxsmall">6dp</dimen>
     <dimen name="space_button_country">22dp</dimen>
 
-    <dimen name="width_edit_text_code_button">32dp</dimen>
-    <dimen name="height_edit_text_code_button">40dp</dimen>
+    <dimen name="width_edit_text_code_button">48dp</dimen>
+    <dimen name="height_edit_text_code_button">48dp</dimen>
+    <dimen name="space_large_negative">-18dp</dimen>
 
 </resources>

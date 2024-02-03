@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".authentication.views.SignUpVerificationActivity"
-    android:padding="@dimen/space_large">
+    tools:context=".authentication.views.SignUpVerificationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:padding="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/cancel"
+            android:src="@drawable/ic_cancel" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_large"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_car"
+        style="@style/ParkingApp.Widget.AppIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/appName"
@@ -41,22 +54,20 @@
 
     <TextView
         android:id="@+id/enterCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ParkingApp.Widget.HelperTextView"
         android:text="@string/feat_signup_enterCode"
-        android:layout_marginTop="@dimen/space_xlarge"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signup"
-        />
+        app:layout_constraintTop_toBottomOf="@id/signup" />
 
     <LinearLayout
         android:id="@+id/layoutOtpCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="@dimen/space_medium"
-        app:layout_constraintTop_toBottomOf="@id/enterCode"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginStart="@dimen/space_large"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enterCode">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/codeBox1"
@@ -66,17 +77,17 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/codeBox2"
             style="@style/ParkingApp.Widget.EditText"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/codeBox3"
             style="@style/ParkingApp.Widget.EditText"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/codeBox4"
             style="@style/ParkingApp.Widget.EditText"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone" />
 
     </LinearLayout>
 
@@ -86,6 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_small"
+        android:layout_marginStart="@dimen/space_large"
         android:text="@string/feat_signup_resend_code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutOtpCode" />

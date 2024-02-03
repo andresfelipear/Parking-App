@@ -20,15 +20,6 @@ object NetworkModule
         )
         .build()
 
-
-    /*
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://regres.in")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-     */
-
     fun provideRetrofit(): Retrofit
     {
         return retrofit
