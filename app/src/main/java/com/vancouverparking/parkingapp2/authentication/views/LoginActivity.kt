@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity()
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+        setSupportActionBar(binding?.toolbar)
 
         binding?.loginButton?.setOnClickListener {
             handleLogin()
@@ -47,6 +48,8 @@ class LoginActivity : AppCompatActivity()
             }
         }
 
+        enableActionBar(true)
+
 
         binding?.email?.doAfterTextChanged {
             binding?.loginButton?.isEnabled = isValidForm()
@@ -56,6 +59,18 @@ class LoginActivity : AppCompatActivity()
             binding?.loginButton?.isEnabled = isValidForm()
         }
 
+
+    }
+
+    private fun enableActionBar(enable: Boolean)
+    {
+        supportActionBar?.setDisplayHomeAsUpEnabled(enable)
+        supportActionBar?.setDisplayShowHomeEnabled(enable)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        binding?.toolbar?.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     override fun onResume()

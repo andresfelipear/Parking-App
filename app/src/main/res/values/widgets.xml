@@ -55,7 +55,7 @@
     <style name="ParkingApp.Widget.AppIcon">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/space_xxlarge</item>
+        <item name="android:layout_marginTop">@dimen/space_xxxlarge</item>
         <item name="contentDescription">@null</item>
         <item name="android:src">@drawable/ic_car</item>
     </style>

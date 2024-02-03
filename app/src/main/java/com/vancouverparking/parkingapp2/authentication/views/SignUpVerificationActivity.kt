@@ -6,31 +6,51 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.core.widget.doAfterTextChanged
+import com.vancouverparking.parkingapp2.MainActivity
 import com.vancouverparking.parkingapp2.R
+import com.vancouverparking.parkingapp2.databinding.ActivitySignUpLastStepBinding
 import com.vancouverparking.parkingapp2.databinding.ActivitySignUpVerificationBinding
 
 class SignUpVerificationActivity : AppCompatActivity()
 {
-    private lateinit var binding: ActivitySignUpVerificationBinding
+    private var binding: ActivitySignUpVerificationBinding? = null
     private val boxes = mutableListOf<EditText>()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpVerificationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
+        setSupportActionBar(binding?.toolbar)
 
         boxes.apply{
-            add(binding.codeBox1)
-            add(binding.codeBox2)
-            add(binding.codeBox3)
-            add(binding.codeBox4)
+            binding?.codeBox1?.let { add(it) }
+            binding?.codeBox2?.let { add(it) }
+            binding?.codeBox3?.let { add(it) }
+            binding?.codeBox4?.let { add(it) }
         }
 
         setBoxFocusListeners()
         setBoxTextListeners()
-        binding.continueSignUpButton.setOnClickListener {
+        binding?.continueSignUpButton?.setOnClickListener {
             startActivity(Intent(this, SignUpLastStep::class.java))
         }
+
+        enableActionBar(true)
+
+        binding?.codeBox1?.doAfterTextChanged {
+            binding?.continueSignUpButton?.isEnabled = isValidForm()
+        }
+        binding?.codeBox2?.doAfterTextChanged {
+            binding?.continueSignUpButton?.isEnabled = isValidForm()
+        }
+        binding?.codeBox3?.doAfterTextChanged {
+            binding?.continueSignUpButton?.isEnabled = isValidForm()
+        }
+        binding?.codeBox4?.doAfterTextChanged {
+            binding?.continueSignUpButton?.isEnabled = isValidForm()
+        }
+
     }
 
     private fun setBoxFocusListeners()
@@ -113,5 +133,45 @@ class SignUpVerificationActivity : AppCompatActivity()
                 // No implementation needed
             }
         })
+    }
+
+    private fun enableActionBar(enable: Boolean)
+    {
+        supportActionBar?.setDisplayHomeAsUpEnabled(enable)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+
+        binding?.toolbar?.setNavigationOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+    }
+
+    override fun onResume()
+    {
+        super.onResume()
+        binding?.continueSignUpButton?.isEnabled = isValidForm()
+    }
+
+    private fun isValidForm(): Boolean
+    {
+        return binding?.codeBox1?.text.toString()
+            .isNotEmpty() &&
+                binding?.codeBox2?.text.toString()
+                    .isNotEmpty()&&
+                binding?.codeBox3?.text.toString()
+                    .isNotEmpty()&&
+                binding?.codeBox4?.text.toString()
+                    .isNotEmpty()
+    }
+
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+        binding = null
     }
 }
