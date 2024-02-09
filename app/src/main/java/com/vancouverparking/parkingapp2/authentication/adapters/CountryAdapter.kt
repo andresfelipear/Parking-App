@@ -1,7 +1,6 @@
 package com.vancouverparking.parkingapp2.authentication.adapters
 
 import android.content.Context
-import android.database.DataSetObserver
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,6 @@ class CountryAdapter(
             binding = ItemCountrySpinnerBinding.inflate(LayoutInflater.from(context), parent, false)
             binding.root.tag = ViewHolder(binding)
         } else {
-            System.out.println("CONVERT VIEW != NULL")
             binding = ItemCountrySpinnerBinding.bind(convertView)
         }
 
@@ -50,8 +48,6 @@ class CountryAdapter(
                 .into(binding.flagImageView)
         }
         binding.countryCodeTextView.text = country?.countryCode
-
-
 
         return binding.root
     }

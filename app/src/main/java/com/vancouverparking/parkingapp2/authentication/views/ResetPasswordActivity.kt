@@ -7,30 +7,31 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Patterns
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.vancouverparking.parkingapp2.MainActivity
 import com.vancouverparking.parkingapp2.R
-import com.vancouverparking.parkingapp2.databinding.ActivityLoginBinding
 import com.vancouverparking.parkingapp2.authentication.viewmodels.LoginState
-import com.vancouverparking.parkingapp2.authentication.viewmodels.LoginViewModel
+import com.vancouverparking.parkingapp2.authentication.viewmodels.ResetPasswordState
+import com.vancouverparking.parkingapp2.authentication.viewmodels.ResetPasswordViewModel
+import com.vancouverparking.parkingapp2.databinding.ActivityResetPasswordBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class LoginActivity : AppCompatActivity()
+class ResetPasswordActivity : AppCompatActivity()
 {
-
-    private val viewModel: LoginViewModel by viewModels()
-    private var binding: ActivityLoginBinding? = null
+    private val viewModel: ResetPasswordViewModel by viewModels()
+    private var binding: ActivityResetPasswordBinding? = null
     private var loadingDialog: Dialog? = null
     private var errorDialog: AlertDialog? = null
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityResetPasswordBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolbar)
 
@@ -45,15 +46,6 @@ class LoginActivity : AppCompatActivity()
                 null)
             .create()
 
-        binding?.loginButton?.setOnClickListener {
-            handleLogin()
-        }
-
-        binding?.forgotPassword?.setOnClickListener {
-            startActivity(Intent(this,
-                ForgotPasswordActivity::class.java))
-        }
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collectLatest { state ->
@@ -62,20 +54,23 @@ class LoginActivity : AppCompatActivity()
             }
         }
 
-        enableActionBar(true)
-
-        binding?.email?.doAfterTextChanged {
-            binding?.loginButton?.isEnabled = isValidForm()
-        }
 
         binding?.password?.doAfterTextChanged {
-            binding?.loginButton?.isEnabled = isValidForm()
+            binding?.resetPasswordButton?.isEnabled = validateForm()
         }
 
+        binding?.confirmPassword?.doAfterTextChanged {
+            binding?.resetPasswordButton?.isEnabled = validateForm()
+        }
 
+        binding?.resetPasswordButton?.setOnClickListener {
+            handleResetPassword()
+        }
+
+        enableActionBar(true)
     }
 
-    private fun showErrorDialog(state: LoginState)
+    private fun showErrorDialog(state: ResetPasswordState)
     {
         if(errorDialog != null && !errorDialog!!.isShowing)
         {
@@ -87,71 +82,76 @@ class LoginActivity : AppCompatActivity()
     private fun enableActionBar(enable: Boolean)
     {
         supportActionBar?.setDisplayHomeAsUpEnabled(enable)
-        supportActionBar?.setDisplayShowHomeEnabled(enable)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
 
         binding?.toolbar?.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
-    override fun onResume()
-    {
-        super.onResume()
-        binding?.loginButton?.isEnabled = isValidForm()
-    }
 
-    private fun isValidForm(): Boolean
+    private fun invalidate(state: ResetPasswordState)
     {
-        return isValidEmail(binding?.email?.text.toString()) &&
-                isValidPassword(binding?.password?.text.toString())
-    }
-
-    private fun isValidEmail(email: String): Boolean
-    {
-        val cleanEmail = email.trim()
-            .lowercase()
-        return Patterns.EMAIL_ADDRESS.matcher(cleanEmail)
-            .matches() && email.isNotEmpty()
-    }
-
-    private fun isValidPassword(password: String): Boolean
-    {
-        val cleanPassword = password.trim()
-        return cleanPassword.isNotEmpty() && cleanPassword.length >= 6
-    }
-
-    private fun invalidate(state: LoginState)
-    {
-        if(state.isLoading && loadingDialog != null)
+        if(state.isLoading)
         {
             loadingDialog?.show()
         } else
         {
             loadingDialog?.dismiss()
         }
+
         if(state.error != null)
         {
             showErrorDialog(state)
         }
+
         if(state.token != null)
         {
-            println("Login Success!")
+            Toast.makeText(
+                this,
+                R.string.feat_reset_password_success,
+                Toast.LENGTH_SHORT
+            ).show()
+
+            startActivity(Intent(this,
+                LoginActivity::class.java))
             finish()
         }
+
+    }
+
+    private fun handleResetPassword()
+    {
+        val email = intent.getStringExtra("email")
+        if(email != null)
+        {
+            viewModel.resetPassword(email, binding?.password?.text.toString(), )
+        }
+    }
+
+    private fun validateForm(): Boolean
+    {
+        return binding?.password?.text.toString()
+            .isNotEmpty() &&
+                binding?.confirmPassword?.text.toString()
+                    .isNotEmpty() &&
+                binding?.password?.text.toString() == binding?.confirmPassword?.text.toString() &&
+                binding?.password?.text.toString().length >= 6
     }
 
     override fun onDestroy()
     {
         super.onDestroy()
-        binding = null
+        binding = null;
     }
 
-
-    private fun handleLogin()
+    override fun onResume()
     {
-        viewModel.login(binding?.email?.text.toString(),
-            binding?.password?.text.toString())
+        super.onResume()
+        binding?.resetPasswordButton?.isEnabled = validateForm()
     }
-
 }

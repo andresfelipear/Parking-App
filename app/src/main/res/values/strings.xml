@@ -17,7 +17,23 @@
     <string name="feat_signup_enterCode">Enter your verification code</string>
     <string name="feat_signup_resend_code">You can resend in (59s)</string>
     <string name="feat_signup_username">Full Name</string>
-    <string name="feat_login_bad_credentials">Wrong Credentials. Try Again</string>
+    <string name="feat_login_error_bad_credentials_body">The password or username you’ve entered are incorrect. Try Again.</string>
+    <string name="feat_login_error_bad_credentials_title">Wrong Credentials</string>
     <string name="feat_login_accepted">"Login Success! "</string>
     <string name="cancel">Cancel Button</string>
+    <string name="feat_forgot_password">Forgot password?</string>
+    <string name="feat_forgot_password_enter_details">Enter your email or mobile number. We will send you a code to reset your password.</string>
+    <string name="feat_forgot_password_hint_phoneEmail">Email ID / Mobile number</string>
+    <string name="feat_forgot_password_submit">Submit</string>
+    <string name="feat_signup_terms_and_conditions"><![CDATA[By signing up, you agree our Terms & Conditions and Privacy Policy.]]></string>
+    <string name="feat_signup_password_conditions">Min 6. characters</string>
+    <string name="feat_forgot_password_no_results">No search results.</string>
+    <string name="feat_forgot_password_invalid_email_mobile">Invalid email or phone.</string>
+    <string name="feat_forgot_password_invalid_email_mobile_title">Invalid Credentials</string>
+    <string name="feat_reset_password">Reset Password</string>
+    <string name="feat_reset_password_enterCode">Enter recovery code.</string>
+    <string name="feat_reset_password_confirm_password">Confirm new password</string>
+    <string name="feat_reset_password_new_password">new password</string>
+    <string name="feat_reset_password_button">Submit</string>
+    <string name="feat_reset_password_success">Password reset successfully</string>
 </resources>

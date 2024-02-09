@@ -42,4 +42,18 @@ class DefaultRemoteAuthRepository(
             null
         }
     }
+
+    override suspend fun forgotPassword(email: String,
+                                        mobile: String): String?
+    {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun resetPassword(email: String,
+                                       password: String): String?
+    {
+        TODO("Not yet implemented")
+    }
+
+
 }

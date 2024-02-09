@@ -24,5 +24,6 @@
     <dimen name="width_edit_text_code_button">48dp</dimen>
     <dimen name="height_edit_text_code_button">48dp</dimen>
     <dimen name="space_large_negative">-18dp</dimen>
+    <dimen name="loadingBar_size">48dp</dimen>
 
 </resources>

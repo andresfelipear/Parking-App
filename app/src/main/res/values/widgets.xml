@@ -61,10 +61,11 @@
     </style>
 
     <style name="ParkingApp.Widget.HelperTextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/space_xlarge</item>
         <item name="android:layout_marginStart">@dimen/space_large</item>
+        <item name="android:layout_marginEnd">@dimen/space_large</item>
     </style>
 
 </resources>

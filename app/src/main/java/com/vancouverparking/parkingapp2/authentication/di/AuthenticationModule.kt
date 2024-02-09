@@ -1,10 +1,12 @@
 package com.vancouverparking.parkingapp2.authentication.di
 
+import com.vancouverparking.parkingapp2.BuildConfig
 import com.vancouverparking.parkingapp2.authentication.data.local.repositories.DefaultLocalAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.local.repositories.LocalAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.remote.api.AuthenticationApi
 import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.DefaultRemoteAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.RemoteAuthRepository
+import com.vancouverparking.parkingapp2.authentication.mockdata.MockAuthRepository
 import com.vancouverparking.parkingapp2.core.di.NetworkModule
 
 object AuthenticationModule
@@ -18,6 +20,10 @@ object AuthenticationModule
 
     fun provideRemoteRepository(): RemoteAuthRepository
     {
+        if(BuildConfig.DEBUG)
+        {
+            return MockAuthRepository()
+        }
         return DefaultRemoteAuthRepository()
     }
 

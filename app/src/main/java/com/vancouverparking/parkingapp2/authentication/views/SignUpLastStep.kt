@@ -3,6 +3,7 @@ package com.vancouverparking.parkingapp2.authentication.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import androidx.core.widget.doAfterTextChanged
 import com.vancouverparking.parkingapp2.MainActivity
 import com.vancouverparking.parkingapp2.R
@@ -34,6 +35,7 @@ class SignUpLastStep : AppCompatActivity()
 
     }
 
+
     private fun enableActionBar(enable: Boolean)
     {
         supportActionBar?.setDisplayHomeAsUpEnabled(enable)
@@ -42,12 +44,14 @@ class SignUpLastStep : AppCompatActivity()
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
 
         binding?.toolbar?.setNavigationOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this,
+                MainActivity::class.java)
             startActivity(intent)
             finish()
         }
 
     }
+
 
     override fun onResume()
     {
@@ -55,14 +59,27 @@ class SignUpLastStep : AppCompatActivity()
         binding?.signupButton?.isEnabled = isValidForm()
     }
 
+
     private fun isValidForm(): Boolean
     {
-        return binding?.email?.text.toString()
-            .isNotEmpty() &&
-                binding?.password?.text.toString()
-                    .isNotEmpty() &&
-                binding?.username?.text.toString()
-                    .isNotEmpty()
+        return isValidEmail(binding?.email?.text.toString()) &&
+                isValidPassword(binding?.password?.text.toString()) &&
+                binding?.username?.text.toString().isNotEmpty()
+    }
+
+
+    private fun isValidEmail(email: String): Boolean
+    {
+        val cleanEmail = email.trim()
+            .lowercase()
+        return Patterns.EMAIL_ADDRESS.matcher(cleanEmail)
+            .matches() && email.isNotEmpty()
+    }
+
+    private fun isValidPassword(password: String): Boolean
+    {
+        val cleanPassword = password.trim()
+        return cleanPassword.isNotEmpty() && cleanPassword.length >= 6
     }
 
 
