@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
+import com.vancouverparking.parkingapp2.authentication.data.CountryCode
+import com.vancouverparking.parkingapp2.authentication.data.getFlags
 import com.vancouverparking.parkingapp2.core.domain.Country
 import com.vancouverparking.parkingapp2.databinding.ItemCountrySpinnerBinding
 
 class CountryAdapter(
         private val context: Context,
-        private val countries: List<Country> = emptyList()
+        private val countries: List<CountryCode> = emptyList()
 ) :
-    ArrayAdapter<Country>(context, 0, countries)
+    ArrayAdapter<CountryCode>(context, 0, countries)
 {
 
     override fun getView(position: Int,
@@ -42,12 +44,8 @@ class CountryAdapter(
             binding = ItemCountrySpinnerBinding.bind(convertView)
         }
 
-        country?.let { it ->
-            Glide.with(context)
-                .load(it.flagImage)
-                .into(binding.flagImageView)
-        }
-        binding.countryCodeTextView.text = country?.countryCode
+        binding.flagImageView.setImageResource(getFlags(country!!.countryCode))
+        binding.countryCodeTextView.text = country?.countryPhoneCode
 
         return binding.root
     }

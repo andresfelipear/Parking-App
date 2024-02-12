@@ -7,10 +7,9 @@ import android.util.Patterns
 import androidx.core.widget.doAfterTextChanged
 import com.vancouverparking.parkingapp2.MainActivity
 import com.vancouverparking.parkingapp2.R
-import com.vancouverparking.parkingapp2.databinding.ActivitySignUpBinding
 import com.vancouverparking.parkingapp2.databinding.ActivitySignUpLastStepBinding
 
-class SignUpLastStep : AppCompatActivity()
+class SignUpLastStepActivity : AppCompatActivity()
 {
     private var binding: ActivitySignUpLastStepBinding? = null
     override fun onCreate(savedInstanceState: Bundle?)

@@ -21,7 +21,7 @@
             android:name=".authentication.views.ResetPasswordVerificationCodeActivity"
             android:exported="false" />
         <activity
-            android:name=".authentication.views.SignUpLastStep"
+            android:name=".authentication.views.SignUpLastStepActivity"
             android:exported="false" />
         <activity
             android:name=".authentication.views.SignUpVerificationActivity"

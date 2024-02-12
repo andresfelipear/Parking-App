@@ -9,7 +9,6 @@ import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import com.vancouverparking.parkingapp2.MainActivity
 import com.vancouverparking.parkingapp2.R
-import com.vancouverparking.parkingapp2.databinding.ActivitySignUpLastStepBinding
 import com.vancouverparking.parkingapp2.databinding.ActivitySignUpVerificationBinding
 
 class SignUpVerificationActivity : AppCompatActivity()
@@ -33,7 +32,7 @@ class SignUpVerificationActivity : AppCompatActivity()
         setBoxFocusListeners()
         setBoxTextListeners()
         binding?.continueSignUpButton?.setOnClickListener {
-            startActivity(Intent(this, SignUpLastStep::class.java))
+            startActivity(Intent(this, SignUpLastStepActivity::class.java))
         }
 
         enableActionBar(true)
