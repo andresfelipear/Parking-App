@@ -23,17 +23,15 @@ class MockAuthRepository : RemoteAuthRepository
         return null
     }
 
-    override suspend fun signUp(email: String,
+    override suspend fun signUp(fullName: String, email: String,
                                 password: String): String?
     {
         if(mockUsers.containsKey(email))
         {
-            if(mockUsers[email] == password)
-            {
-                return "Token: MOCK_TOKEN"
-            }
+            return null
         }
-        return null
+        mockUsers[email] = password
+        return "Token: MOCK_TOKEN $email"
     }
 
     override suspend fun forgotPassword(email: String,
@@ -55,5 +53,10 @@ class MockAuthRepository : RemoteAuthRepository
             return "Token: MOCK_TOKEN $email $password"
         }
         return null
+    }
+
+    override suspend fun validateResetPasswordCode(code: String): String?
+    {
+        TODO("Not yet implemented")
     }
 }

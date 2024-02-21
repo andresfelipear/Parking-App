@@ -36,4 +36,5 @@
     <string name="feat_reset_password_new_password">new password</string>
     <string name="feat_reset_password_button">Submit</string>
     <string name="feat_reset_password_success">Password reset successfully</string>
+    <string name="feat_signup_error_bad_credentials_body">The email already exists. If you forgot your password use the forgot password option</string>
 </resources>

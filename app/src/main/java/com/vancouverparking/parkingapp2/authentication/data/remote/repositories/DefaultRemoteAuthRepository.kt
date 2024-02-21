@@ -1,6 +1,7 @@
 package com.vancouverparking.parkingapp2.authentication.data.remote.repositories
 
 import com.vancouverparking.parkingapp2.authentication.data.remote.api.AuthenticationApi
+import com.vancouverparking.parkingapp2.authentication.data.remote.request.ForgotPasswordRequest
 import com.vancouverparking.parkingapp2.authentication.data.remote.request.LoginRequest
 import com.vancouverparking.parkingapp2.authentication.data.remote.request.SignUpRequest
 import com.vancouverparking.parkingapp2.authentication.di.AuthenticationModule
@@ -27,7 +28,8 @@ class DefaultRemoteAuthRepository(
         }
     }
 
-    override suspend fun signUp(email: String,
+    override suspend fun signUp(fullname: String,
+                                email: String,
                                 password: String): String?
     {
         val signUpRequest = SignUpRequest(email, password)
@@ -46,11 +48,23 @@ class DefaultRemoteAuthRepository(
     override suspend fun forgotPassword(email: String,
                                         mobile: String): String?
     {
-        TODO("Not yet implemented")
+        val forgotPasswordRequest = ForgotPasswordRequest(email,mobile)
+        return  try {
+            val response = api.forgotPassword(forgotPasswordRequest)
+            response.token
+        } catch (exception: Exception){
+            exception.printStackTrace()
+            null
+        }
     }
 
     override suspend fun resetPassword(email: String,
                                        password: String): String?
+    {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun validateResetPasswordCode(code: String): String?
     {
         TODO("Not yet implemented")
     }

@@ -1,6 +1,5 @@
 package com.vancouverparking.parkingapp2.authentication.viewmodels
 
-import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.RemoteAuthRepository
@@ -10,29 +9,31 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-data class LoginState(
+data class SignupState(
         val isLoading: Boolean = false,
         val error: Throwable? = null,
         val token: String? = null,
-        val isValidCredentials: Boolean = false
+        val isSuccess: Boolean = false
 )
 
-class LoginViewModel(
+class SignupViewModel(
         private val repository: RemoteAuthRepository = AuthenticationModule.provideRemoteRepository()
 ) : ViewModel()
 {
-    private val internalState = MutableStateFlow(LoginState())
-    val state: StateFlow<LoginState> = internalState
+    private val internalState = MutableStateFlow(SignupState())
+    val state: StateFlow<SignupState> = internalState
 
-    fun login(email: String,
-              password: String)
+    fun signup(username: String,
+               email: String,
+               password: String)
     {
         internalState.value = internalState.value.copy(
             isLoading = true
         )
-        viewModelScope.launch(Dispatchers.IO) {
-            val token = repository.login(email.trim()
-                .lowercase(),
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            val token = repository.signUp(username.trim(),
+                email.trim(),
                 password.trim())
 
             internalState.value = internalState.value.copy(
@@ -41,12 +42,15 @@ class LoginViewModel(
                 error = if(token != null)
                 {
                     null
-                } else
+                }
+                else
                 {
                     RuntimeException("Error NO TOKEN")
                 }
             )
+
         }
+
     }
 
 }
