@@ -14,7 +14,6 @@ data class LoginState(
         val isLoading: Boolean = false,
         val error: Throwable? = null,
         val token: String? = null,
-        val isValidCredentials: Boolean = false
 )
 
 class LoginViewModel(
@@ -47,6 +46,11 @@ class LoginViewModel(
                 }
             )
         }
+    }
+
+    fun clearState()
+    {
+        internalState.value = LoginState()
     }
 
 }

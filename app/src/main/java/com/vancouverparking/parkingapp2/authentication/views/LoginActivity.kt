@@ -133,6 +133,7 @@ class LoginActivity : AppCompatActivity()
         if(state.error != null)
         {
             showErrorDialog(state)
+            viewModel.clearState()
         }
         if(state.token != null)
         {

@@ -41,7 +41,8 @@ class ForgotPasswordViewModel(
                 {
                     repository.forgotPassword(emailMobile.trim(),
                         "")
-                } else
+                }
+                else
                 {
                     repository.forgotPassword("",
                         emailMobile)
@@ -92,6 +93,11 @@ class ForgotPasswordViewModel(
             }
         }
 
+    }
+
+    fun clearState()
+    {
+        internalState.value = ForgotPasswordState()
     }
 
 }

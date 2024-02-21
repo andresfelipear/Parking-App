@@ -34,7 +34,6 @@ class SignUpLastStepActivity : AppCompatActivity()
         binding = ActivitySignUpLastStepBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolbar)
-
         enableActionBar(true)
 
         binding?.email?.doAfterTextChanged {
@@ -69,30 +68,33 @@ class SignUpLastStepActivity : AppCompatActivity()
                 }
             }
         }
-
     }
+
 
     private fun invalidate(state: SignupState)
     {
         if(state.isLoading && loadingDialog != null)
         {
             loadingDialog?.show()
-        } else
+        }
+        else
         {
             loadingDialog?.dismiss()
         }
         if(state.error != null)
         {
             showErrorDialog(state)
+            viewModel.clearState()
         }
         if(state.token != null)
         {
             println("Signup Success")
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this,
+                MainActivity::class.java))
             finish()
         }
-
     }
+
 
     private fun handleSignup()
     {
@@ -100,6 +102,7 @@ class SignUpLastStepActivity : AppCompatActivity()
             binding?.email?.text.toString(),
             binding?.password?.text.toString())
     }
+
 
     private fun showErrorDialog(state: SignupState)
     {
@@ -124,7 +127,6 @@ class SignUpLastStepActivity : AppCompatActivity()
             startActivity(intent)
             finish()
         }
-
     }
 
 
@@ -139,7 +141,8 @@ class SignUpLastStepActivity : AppCompatActivity()
     {
         return isValidEmail(binding?.email?.text.toString()) &&
                 isValidPassword(binding?.password?.text.toString()) &&
-                binding?.username?.text.toString().isNotEmpty()
+                binding?.username?.text.toString()
+                    .isNotEmpty()
     }
 
 
@@ -150,6 +153,7 @@ class SignUpLastStepActivity : AppCompatActivity()
         return Patterns.EMAIL_ADDRESS.matcher(cleanEmail)
             .matches() && email.isNotEmpty()
     }
+
 
     private fun isValidPassword(password: String): Boolean
     {

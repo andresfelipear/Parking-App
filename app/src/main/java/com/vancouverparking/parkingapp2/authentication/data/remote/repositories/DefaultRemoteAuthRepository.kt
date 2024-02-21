@@ -64,7 +64,7 @@ class DefaultRemoteAuthRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun validateResetPasswordCode(code: String): String?
+    override suspend fun validateResetPasswordCode(recoveryCode: String, email: String): String?
     {
         TODO("Not yet implemented")
     }

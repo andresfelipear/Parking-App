@@ -10,6 +10,12 @@ class MockAuthRepository : RemoteAuthRepository
         "jorch@test.io" to "qwerty"
     )
 
+    private val mockRecoveryCodes = mutableMapOf(
+        "daniel@test.io" to "1414",
+        "murillo@test.io" to "2202",
+        "jorch@test.io" to "0812"
+    )
+
     override suspend fun login(email: String,
                                password: String): String?
     {
@@ -55,8 +61,15 @@ class MockAuthRepository : RemoteAuthRepository
         return null
     }
 
-    override suspend fun validateResetPasswordCode(code: String): String?
+    override suspend fun validateResetPasswordCode(recoveryCode: String, email: String): String?
     {
-        TODO("Not yet implemented")
+        if(mockRecoveryCodes.containsKey(email))
+        {
+            if(mockRecoveryCodes[email] == recoveryCode)
+            {
+                return "Token: MOCK_TOKEN $email $recoveryCode"
+            }
+        }
+        return null
     }
 }

@@ -45,8 +45,11 @@ class ResetPasswordViewModel(
                 }
             )
         }
+    }
 
-
+    fun clearState()
+    {
+        internalState.value = ResetPasswordState()
     }
 
 
