@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.vancouverparking.parkingapp2.R
 import com.vancouverparking.parkingapp2.authentication.adapters.CountryAdapter
+import com.vancouverparking.parkingapp2.authentication.data.CountryCode
 import com.vancouverparking.parkingapp2.authentication.data.getListOfCountries
 import com.vancouverparking.parkingapp2.authentication.viewmodels.LoginState
 import com.vancouverparking.parkingapp2.authentication.viewmodels.LoginViewModel
@@ -73,7 +74,9 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun handlePhoneNumber()
     {
-        viewModel.sendVerificationCode(binding?.phoneNumber?.text.toString())
+        val countryCode:CountryCode = binding?.spinnerCountries?.selectedItem as CountryCode
+        val phoneNumber = countryCode.countryPhoneCode + binding?.phoneNumber?.text.toString()
+        viewModel.sendVerificationCode(phoneNumber)
     }
 
     private fun enableActionBar(enable: Boolean)
@@ -124,7 +127,7 @@ class SignUpActivity : AppCompatActivity() {
         }
         if(state.isSuccess)
         {
-            println("Code Sent Success")
+            println("Success code sent!")
             startActivity(Intent(this, SignUpVerificationActivity ::class.java))
             finish()
         }

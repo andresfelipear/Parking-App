@@ -34,16 +34,21 @@ class DefaultRemoteAuthRepository(
     private var verificationInProgress = false
     private var storedVerificationId: String? = ""
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    val phoneNumber = "+16505554567"
+    val smsCode = "123456"
 
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks()
     {
         override fun onVerificationCompleted(credential: PhoneAuthCredential)
         {
+            Log.d(TAG, "onVerificationCompleted:$credential")
+            println("Verification completed")
             verificationInProgress = false
         }
 
         override fun onVerificationFailed(e: FirebaseException)
         {
+            println("Verification failed")
             if(e is FirebaseAuthInvalidCredentialsException)
             {
                 // Invalid request
@@ -59,6 +64,7 @@ class DefaultRemoteAuthRepository(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken,
         ) {
+            println("Verification onCodeSent")
             // The SMS verification code has been sent to the provided phone number, we
             // now need to ask the user to enter the code and then construct a credential
             // by combining the code with a verification ID.
@@ -147,10 +153,13 @@ class DefaultRemoteAuthRepository(
     {
         try
         {
+            // Configure faking the auto-retrieval with the whitelisted numbers.
+            firebaseAuth.firebaseAuthSettings.setAppVerificationDisabledForTesting(true)
+            //firebaseAuth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(phoneNumber, smsCode)
+
             val options = PhoneAuthOptions.newBuilder(firebaseAuth)
                 .setPhoneNumber(phoneNumber)
                 .setTimeout(TIME_FOR_RESEND_CODE, TimeUnit.SECONDS)
-                .setActivity(Activity())
                 .setCallbacks(callbacks)
                 .build()
 

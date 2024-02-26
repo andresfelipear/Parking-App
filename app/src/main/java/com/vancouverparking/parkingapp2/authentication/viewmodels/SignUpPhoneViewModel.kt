@@ -23,6 +23,7 @@ class SignUpPhoneViewModel(
 
     fun sendVerificationCode(phoneNumber: String)
     {
+        println("my phone number: $phoneNumber")
         internalState.value = internalState.value.copy(
             isLoading = true
         )
