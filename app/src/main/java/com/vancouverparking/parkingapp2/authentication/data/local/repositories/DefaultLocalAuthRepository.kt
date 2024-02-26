@@ -1,16 +1,20 @@
 package com.vancouverparking.parkingapp2.authentication.data.local.repositories
 
-class DefaultLocalAuthRepository: LocalAuthRepository
+import com.vancouverparking.parkingapp2.authentication.data.local.daos.UserDao
+import com.vancouverparking.parkingapp2.authentication.data.local.entities.UserDetails
+
+class DefaultLocalAuthRepository(
+    private val dao: UserDao
+): LocalAuthRepository
 {
-    override suspend fun login(email: String,
-                               password: String): String?
+    override suspend fun getUsers(): List<UserDetails>
     {
-        TODO("Not yet implemented")
+        return dao.getUsers()
     }
 
-    override suspend fun singUp(email: String,
-                                password: String): String?
+    override suspend fun getUserByTokenId(token: String): UserDetails?
     {
-        TODO("Not yet implemented")
+        return dao.getUserByTokenId(token)
     }
+
 }

@@ -7,4 +7,5 @@ interface RemoteAuthRepository
     suspend fun forgotPassword(email: String, mobile: String): String?
     suspend fun resetPassword(email: String, password: String): String?
     suspend fun validateResetPasswordCode(recoveryCode: String, email: String): String?
+    suspend fun sendVerificationCode(phoneNumber: String): Boolean?
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "777997101377",
+    "project_id": "parkinapp-25e95",
+    "storage_bucket": "parkinapp-25e95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777997101377:android:4a30b7d173d442cde999c0",
+        "android_client_info": {
+          "package_name": "com.vancouverparking.parkingapp2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdD3XtpjVOcBYfy8ThcjTOLAlqBAs-Rck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

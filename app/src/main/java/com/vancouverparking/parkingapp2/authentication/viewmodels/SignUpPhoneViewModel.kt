@@ -1,9 +1,7 @@
 package com.vancouverparking.parkingapp2.authentication.viewmodels
 
-import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.DefaultRemoteAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.RemoteAuthRepository
 import com.vancouverparking.parkingapp2.authentication.di.AuthenticationModule
 import kotlinx.coroutines.Dispatchers
@@ -11,47 +9,48 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-data class LoginState(
+data class SignUpPhoneState(
         val isLoading: Boolean = false,
         val error: Throwable? = null,
-        val token: String? = null,
+        val isSuccess: Boolean = false
 )
-
-class LoginViewModel(
-        private val repository: RemoteAuthRepository = AuthenticationModule.provideRemoteRepository()
-) : ViewModel()
+class SignUpPhoneViewModel(
+    private val repository: RemoteAuthRepository = AuthenticationModule.provideRemoteRepository()
+):ViewModel()
 {
-    private val internalState = MutableStateFlow(LoginState())
-    val state: StateFlow<LoginState> = internalState
+    private val internalState = MutableStateFlow(SignUpPhoneState())
+    val state:StateFlow<SignUpPhoneState> = internalState
 
-    fun login(email: String,
-              password: String)
+    fun sendVerificationCode(phoneNumber: String)
     {
         internalState.value = internalState.value.copy(
             isLoading = true
         )
-        viewModelScope.launch(Dispatchers.IO) {
-            val token = repository.login(email.trim()
-                .lowercase(),
-                password.trim())
+
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            val result = repository.sendVerificationCode(phoneNumber.trim())
 
             internalState.value = internalState.value.copy(
                 isLoading = false,
-                token = token,
-                error = if(token != null)
-                {
+                isSuccess = result == true,
+                error = if(result == true){
                     null
-                } else
+                }
+                else
                 {
-                    RuntimeException("Error Login")
+                    RuntimeException("Error sending verification code!")
                 }
             )
+
         }
+
     }
 
     fun clearState()
     {
-        internalState.value = LoginState()
+        internalState.value = SignUpPhoneState()
     }
+
 
 }

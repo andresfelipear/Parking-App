@@ -1,7 +1,10 @@
 package com.vancouverparking.parkingapp2.authentication.data.local.repositories
 
+import com.vancouverparking.parkingapp2.authentication.data.local.entities.UserDetails
+
 interface LocalAuthRepository
 {
-    suspend fun login(email: String, password: String): String?
-    suspend fun singUp(email: String, password: String): String?
+    suspend fun getUsers(): List<UserDetails>
+
+    suspend fun getUserByTokenId(token: String) : UserDetails?
 }

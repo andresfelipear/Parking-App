@@ -1,30 +1,93 @@
 package com.vancouverparking.parkingapp2.authentication.data.remote.repositories
 
+import android.app.Activity
+import android.content.ContentValues.TAG
+import android.util.Log
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import com.vancouverparking.parkingapp2.authentication.data.local.daos.UserDao
+import com.vancouverparking.parkingapp2.authentication.data.local.entities.UserDetails
 import com.vancouverparking.parkingapp2.authentication.data.remote.api.AuthenticationApi
 import com.vancouverparking.parkingapp2.authentication.data.remote.request.ForgotPasswordRequest
 import com.vancouverparking.parkingapp2.authentication.data.remote.request.LoginRequest
 import com.vancouverparking.parkingapp2.authentication.data.remote.request.SignUpRequest
 import com.vancouverparking.parkingapp2.authentication.di.AuthenticationModule
+import com.vancouverparking.parkingapp2.authentication.di.DatabaseModule
+import kotlinx.coroutines.tasks.await
+import java.util.concurrent.TimeUnit
+
+const val TIME_FOR_RESEND_CODE = 60L
 
 class DefaultRemoteAuthRepository(
-    private val api: AuthenticationApi = AuthenticationModule.provideAuthenticationApi()
-): RemoteAuthRepository
+        private val api: AuthenticationApi = AuthenticationModule.provideAuthenticationApi(),
+        private val dao: UserDao = AuthenticationModule.provideTokenDao()
+) : RemoteAuthRepository
 {
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private var verificationInProgress = false
+    private var storedVerificationId: String? = ""
+    private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+
+    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks()
+    {
+        override fun onVerificationCompleted(credential: PhoneAuthCredential)
+        {
+            verificationInProgress = false
+        }
+
+        override fun onVerificationFailed(e: FirebaseException)
+        {
+            if(e is FirebaseAuthInvalidCredentialsException)
+            {
+                // Invalid request
+                // Handle invalid phone number
+            }
+            else if(e is FirebaseTooManyRequestsException)
+            {
+                // Handle SMS quota exceeded
+            }
+        }
+
+        override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken,
+        ) {
+            // The SMS verification code has been sent to the provided phone number, we
+            // now need to ask the user to enter the code and then construct a credential
+            // by combining the code with a verification ID.
+            Log.d(TAG, "onCodeSent:$verificationId")
+
+            // Save verification ID and resending token so we can use them later
+            storedVerificationId = verificationId
+            resendToken = token
+        }
+
+    }
+
+
     override suspend fun login(email: String,
                                password: String): String?
     {
-
-        val loginRequest = LoginRequest(email, password)
-
-        return try
+        try
         {
-            val response = api.login(loginRequest)
-            response.token
+            val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            if(authResult.user != null)
+            {
+                return authResult.user!!.uid
+            }
+            return null
         }
-        catch(exception: Exception)
+        catch(exception: FirebaseAuthException)
         {
             exception.printStackTrace()
-            null
+            return null
         }
     }
 
@@ -32,27 +95,36 @@ class DefaultRemoteAuthRepository(
                                 email: String,
                                 password: String): String?
     {
-        val signUpRequest = SignUpRequest(email, password)
-        return try
+        try
         {
-            val response = api.signUp(signUpRequest)
-            response.token
+            // Create a user in Firebase Authentication
+
+            val userRecord = firebaseAuth.createUserWithEmailAndPassword(email, password)
+
+            val user = firebaseAuth.currentUser
+            dao.insertUser(
+                UserDetails(user!!.uid, email, 0, fullname))
+
+            return user!!.uid
         }
-        catch(exception: Exception)
+        catch(exception: FirebaseAuthException)
         {
             exception.printStackTrace()
-            null
+            return null
         }
     }
 
     override suspend fun forgotPassword(email: String,
                                         mobile: String): String?
     {
-        val forgotPasswordRequest = ForgotPasswordRequest(email,mobile)
-        return  try {
+        val forgotPasswordRequest = ForgotPasswordRequest(email, mobile)
+        return try
+        {
             val response = api.forgotPassword(forgotPasswordRequest)
             response.token
-        } catch (exception: Exception){
+        }
+        catch(exception: Exception)
+        {
             exception.printStackTrace()
             null
         }
@@ -64,10 +136,52 @@ class DefaultRemoteAuthRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun validateResetPasswordCode(recoveryCode: String, email: String): String?
+    override suspend fun validateResetPasswordCode(recoveryCode: String,
+                                                   email: String): String?
     {
         TODO("Not yet implemented")
     }
+
+
+    override suspend fun sendVerificationCode(phoneNumber: String): Boolean?
+    {
+        try
+        {
+            val options = PhoneAuthOptions.newBuilder(firebaseAuth)
+                .setPhoneNumber(phoneNumber)
+                .setTimeout(TIME_FOR_RESEND_CODE, TimeUnit.SECONDS)
+                .setActivity(Activity())
+                .setCallbacks(callbacks)
+                .build()
+
+            PhoneAuthProvider.verifyPhoneNumber(options)
+
+            verificationInProgress = true
+
+            return true
+        }
+        catch(exception: Exception)
+        {
+            exception.printStackTrace()
+            return false
+        }
+    }
+
+    private fun resendVerificationCode(
+            phoneNumber: String,
+            token: PhoneAuthProvider.ForceResendingToken?,
+    ) {
+        val optionsBuilder = PhoneAuthOptions.newBuilder(firebaseAuth)
+            .setPhoneNumber(phoneNumber) // Phone number to verify
+            .setTimeout(TIME_FOR_RESEND_CODE, TimeUnit.SECONDS) // Timeout and unit
+            .setActivity(Activity()) // Activity (for callback binding)
+            .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+        if (token != null) {
+            optionsBuilder.setForceResendingToken(token) // callback's ForceResendingToken
+        }
+        PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build())
+    }
+
 
 
 }

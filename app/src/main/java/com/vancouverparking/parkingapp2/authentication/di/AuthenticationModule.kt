@@ -1,6 +1,7 @@
 package com.vancouverparking.parkingapp2.authentication.di
 
 import com.vancouverparking.parkingapp2.BuildConfig
+import com.vancouverparking.parkingapp2.authentication.data.local.daos.UserDao
 import com.vancouverparking.parkingapp2.authentication.data.local.repositories.DefaultLocalAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.local.repositories.LocalAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.remote.api.AuthenticationApi
@@ -11,7 +12,9 @@ import com.vancouverparking.parkingapp2.core.di.NetworkModule
 
 object AuthenticationModule
 {
-    val retrofit = NetworkModule.provideRetrofit()
+    private val retrofit = NetworkModule.provideRetrofit()
+    private val database = DatabaseModule.provideParkingAppDatabase()
+
 
     fun provideAuthenticationApi(): AuthenticationApi
     {
@@ -20,15 +23,21 @@ object AuthenticationModule
 
     fun provideRemoteRepository(): RemoteAuthRepository
     {
-        if(BuildConfig.DEBUG)
-        {
-            return MockAuthRepository()
-        }
+//        if(BuildConfig.DEBUG)
+//        {
+//            return MockAuthRepository()
+//        }
         return DefaultRemoteAuthRepository()
     }
 
-    fun provideLocalRepository(): LocalAuthRepository
+    fun provideTokenDao(): UserDao
     {
-        return DefaultLocalAuthRepository()
+        return database.userDao()
     }
+
+    fun provideLocalRepository(dao: UserDao): LocalAuthRepository
+    {
+        return DefaultLocalAuthRepository(dao)
+    }
+
 }

@@ -2,6 +2,7 @@ package com.vancouverparking.parkingapp2.authentication.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.DefaultRemoteAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.RemoteAuthRepository
 import com.vancouverparking.parkingapp2.authentication.di.AuthenticationModule
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,7 @@ data class SignupState(
 )
 
 class SignupViewModel(
-        private val repository: RemoteAuthRepository = AuthenticationModule.provideRemoteRepository()
+        private val repository: RemoteAuthRepository = DefaultRemoteAuthRepository()
 ) : ViewModel()
 {
     private val internalState = MutableStateFlow(SignupState())
