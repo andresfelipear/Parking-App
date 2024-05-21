@@ -195,9 +195,8 @@ class DefaultRemoteAuthRepository(
         try
         {
             var user: FirebaseUser? = null
-            println("verifyVerificationCode")
-            println("verificationId: $verificationId")
             val credential = PhoneAuthProvider.getCredential(verificationId!!, verificationCode)
+
             firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->
                     if(task.isSuccessful)
@@ -221,8 +220,6 @@ class DefaultRemoteAuthRepository(
         }
         catch(exception: Exception)
         {
-            println("Error")
-            println(exception)
             exception.printStackTrace()
             return null
         }

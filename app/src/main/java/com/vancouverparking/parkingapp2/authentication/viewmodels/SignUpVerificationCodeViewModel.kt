@@ -28,10 +28,6 @@ class SignUpVerificationCodeViewModel(
             isLoading = true
         )
 
-        println("Verification code and id")
-        println(verificationId)
-        println(verificationCode)
-
         viewModelScope.launch(Dispatchers.IO)
         {
             val result = repository.verifyVerificationCode(verificationId.trim(), verificationCode.trim())
