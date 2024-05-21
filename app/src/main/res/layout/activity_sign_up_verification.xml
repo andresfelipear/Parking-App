@@ -80,6 +80,15 @@
             android:id="@+id/codeBox4"
             style="@style/ParkingApp.Widget.EditText"
             android:imeOptions="actionDone" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox5"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionNext" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox6"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionDone" />
 
     </LinearLayout>
 

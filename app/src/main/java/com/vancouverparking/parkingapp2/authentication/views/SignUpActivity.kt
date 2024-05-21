@@ -57,7 +57,6 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         val adapter = CountryAdapter(this, getListOfCountries())
-
         binding?.spinnerCountries?.adapter = adapter
 
         binding?.continueSignUpButton?.setOnClickListener {
@@ -69,7 +68,6 @@ class SignUpActivity : AppCompatActivity() {
         binding?.phoneNumber?.doAfterTextChanged {
             binding?.continueSignUpButton?.isEnabled = isValidForm()
         }
-
     }
 
     private fun handlePhoneNumber()
@@ -88,7 +86,6 @@ class SignUpActivity : AppCompatActivity() {
         binding?.toolbar?.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-
     }
     override fun onResume()
     {
@@ -127,12 +124,14 @@ class SignUpActivity : AppCompatActivity() {
         }
         if(state.isSuccess)
         {
+            val intent = Intent(this, SignUpVerificationActivity::class.java)
+
             println("Success code sent!")
-            startActivity(Intent(this, SignUpVerificationActivity ::class.java))
+            intent.putExtra("verificationId", state.result)
+            startActivity(intent)
             finish()
         }
     }
-
 
     override fun onDestroy()
     {

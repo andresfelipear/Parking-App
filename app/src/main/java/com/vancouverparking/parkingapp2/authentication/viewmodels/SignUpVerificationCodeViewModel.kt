@@ -2,39 +2,41 @@ package com.vancouverparking.parkingapp2.authentication.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.DefaultRemoteAuthRepository
 import com.vancouverparking.parkingapp2.authentication.data.remote.repositories.RemoteAuthRepository
-import com.vancouverparking.parkingapp2.authentication.di.AuthenticationModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-data class SignUpPhoneState(
+data class SignUpVerificationCodeState(
         val isLoading: Boolean = false,
         val error: Throwable? = null,
-        val isSuccess: Boolean = false,
-        val result: String? = null
+        val isSuccess: Boolean = false
 )
-class SignUpPhoneViewModel(
-    private val repository: RemoteAuthRepository = AuthenticationModule.provideRemoteRepository()
-):ViewModel()
+class SignUpVerificationCodeViewModel(
+    private val repository: RemoteAuthRepository = DefaultRemoteAuthRepository()
+) : ViewModel()
 {
-    private val internalState = MutableStateFlow(SignUpPhoneState())
-    val state:StateFlow<SignUpPhoneState> = internalState
+    private val internalState = MutableStateFlow(SignUpVerificationCodeState())
+    val state: StateFlow<SignUpVerificationCodeState> = internalState
 
-    fun sendVerificationCode(phoneNumber: String)
+    fun verifyCode(verificationId: String,
+                   verificationCode: String)
     {
-        println("my phone number: $phoneNumber")
         internalState.value = internalState.value.copy(
             isLoading = true
         )
 
+        println("Verification code and id")
+        println(verificationId)
+        println(verificationCode)
+
         viewModelScope.launch(Dispatchers.IO)
         {
-            val result = repository.sendVerificationCode(phoneNumber.trim())
+            val result = repository.verifyVerificationCode(verificationId.trim(), verificationCode.trim())
 
             internalState.value = internalState.value.copy(
-                result = result,
                 isLoading = false,
                 isSuccess = result != null,
                 error = if(result != null){
@@ -42,15 +44,16 @@ class SignUpPhoneViewModel(
                 }
                 else
                 {
-                    RuntimeException("Error sending verification code!")
+                    RuntimeException("Invalid verification code, try again!")
                 }
             )
+
         }
     }
 
     fun clearState()
     {
-        internalState.value = SignUpPhoneState()
+        internalState.value = SignUpVerificationCodeState()
     }
 
 

@@ -2,6 +2,7 @@ package com.vancouverparking.parkingapp2.authentication.data.remote.repositories
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.util.Log
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -9,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
@@ -20,10 +22,11 @@ import com.vancouverparking.parkingapp2.authentication.data.remote.request.Login
 import com.vancouverparking.parkingapp2.authentication.data.remote.request.SignUpRequest
 import com.vancouverparking.parkingapp2.authentication.di.AuthenticationModule
 import com.vancouverparking.parkingapp2.authentication.di.DatabaseModule
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.TimeUnit
 
-const val TIME_FOR_RESEND_CODE = 60L
+const val TIME_FOR_RESEND_CODE = 120L
 
 class DefaultRemoteAuthRepository(
         private val api: AuthenticationApi = AuthenticationModule.provideAuthenticationApi(),
@@ -32,6 +35,7 @@ class DefaultRemoteAuthRepository(
 {
     private val firebaseAuth = FirebaseAuth.getInstance()
     private var verificationInProgress = false
+    private var verificationIdDeferred: CompletableDeferred<String?>? = null
     private var storedVerificationId: String? = ""
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     val phoneNumber = "+16505554567"
@@ -73,6 +77,7 @@ class DefaultRemoteAuthRepository(
             // Save verification ID and resending token so we can use them later
             storedVerificationId = verificationId
             resendToken = token
+            verificationIdDeferred?.complete(verificationId)
         }
 
     }
@@ -110,7 +115,6 @@ class DefaultRemoteAuthRepository(
             val user = firebaseAuth.currentUser
             dao.insertUser(
                 UserDetails(user!!.uid, email, 0, fullname))
-
             return user!!.uid
         }
         catch(exception: FirebaseAuthException)
@@ -148,8 +152,7 @@ class DefaultRemoteAuthRepository(
         TODO("Not yet implemented")
     }
 
-
-    override suspend fun sendVerificationCode(phoneNumber: String): Boolean?
+    override suspend fun sendVerificationCode(phoneNumber: String): String?
     {
         try
         {
@@ -167,12 +170,61 @@ class DefaultRemoteAuthRepository(
 
             verificationInProgress = true
 
-            return true
+            return getVerificationId()
         }
         catch(exception: Exception)
         {
             exception.printStackTrace()
-            return false
+            return null
+        }
+    }
+
+    /**
+     * This function waits until the verification id is assigned to the storedVerificationId variable
+     */
+    private suspend fun getVerificationId(): String? {
+        val deferred = CompletableDeferred<String?>()
+        verificationIdDeferred = deferred
+        return deferred.await()
+    }
+
+
+    override suspend fun verifyVerificationCode(verificationId: String,
+                                                verificationCode: String): String?
+    {
+        try
+        {
+            var user: FirebaseUser? = null
+            println("verifyVerificationCode")
+            println("verificationId: $verificationId")
+            val credential = PhoneAuthProvider.getCredential(verificationId!!, verificationCode)
+            firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful)
+                    {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success")
+
+                        user = task.result?.user!!
+                    }
+                    else
+                    {
+                        // Sign in failed, display a message and update the UI
+                        Log.w(TAG, "signInWithCredential:failure", task.exception)
+                        if (task.exception is FirebaseAuthInvalidCredentialsException)
+                        {
+                            user = null
+                        }
+                    }
+                }
+            return user.toString()
+        }
+        catch(exception: Exception)
+        {
+            println("Error")
+            println(exception)
+            exception.printStackTrace()
+            return null
         }
     }
 

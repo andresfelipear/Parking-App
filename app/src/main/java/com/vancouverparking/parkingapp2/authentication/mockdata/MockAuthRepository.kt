@@ -73,7 +73,13 @@ class MockAuthRepository : RemoteAuthRepository
         return null
     }
 
-    override suspend fun sendVerificationCode(phoneNumber: String): Boolean?
+    override suspend fun sendVerificationCode(phoneNumber: String): String?
+    {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun verifyVerificationCode(verificationCode: String,
+                                                verificationId: String): String?
     {
         TODO("Not yet implemented")
     }

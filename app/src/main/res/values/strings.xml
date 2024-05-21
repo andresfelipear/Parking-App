@@ -40,4 +40,6 @@
     <string name="feat_reset_password_error_bad_credentials_title">Invalid Code</string>
     <string name="feat_reset_password_error_bad_credentials_body">Invalid Code.</string>
     <string name="feat_signup_error_send_code">There was an error sending the verification code. Please try again</string>
+    <string name="feat_signup_error_bad_verification_code_title">Error Verification Code</string>
+    <string name="feat_signup_error_verify_code">The verification code used didn\'t work. Try again</string>
 </resources>
