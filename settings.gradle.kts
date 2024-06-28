@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "ParkingApp2"
 include(":app")
- 
+include(":dashboard")
+include(":app:dashboard")

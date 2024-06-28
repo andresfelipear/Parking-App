@@ -122,6 +122,8 @@ class SignUpVerificationActivity : AppCompatActivity()
         if(state.isSuccess)
         {
             println("Success!. Code was verified correctly!")
+            val intent = Intent(this, SignUpLastStepActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }

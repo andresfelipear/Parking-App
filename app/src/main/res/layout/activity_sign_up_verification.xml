@@ -92,17 +92,31 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/resendCode"
-        style="@style/ParkingApp.TextStyle.Link"
+    <LinearLayout
+        android:id="@+id/resendCodeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="@dimen/space_small"
-        android:layout_marginStart="@dimen/space_large"
-        android:text="@string/feat_signup_resend_code"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutOtpCode" />
+        app:layout_constraintTop_toBottomOf="@id/layoutOtpCode">
 
+        <TextView
+            android:id="@+id/resendCode1"
+            style="@style/ParkingApp.TextStyle.Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_large"
+            android:text="@string/feat_signup_resend_code" />
+
+        <TextView
+            android:id="@+id/resendCode2"
+            style="@style/ParkingApp.TextStyle.Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feat_signup_resend_code_timer" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/continueSignUpButton"
@@ -112,6 +126,6 @@
         android:layout_marginTop="@dimen/space_xxlarge"
         android:elevation="0dp"
         android:text="@string/feat_signup_continue"
-        app:layout_constraintTop_toBottomOf="@id/resendCode"
+        app:layout_constraintTop_toBottomOf="@id/resendCodeMessage"
         tools:ignore="DuplicateSpeakableTextCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
