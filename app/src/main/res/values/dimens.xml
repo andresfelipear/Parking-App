@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="space_medium">16dp</dimen>
+    <dimen name="space_large">24dp</dimen>
+    <dimen name="space_xlarge">32dp</dimen>
+    <dimen name="space_xxlarge">48dp</dimen>
+    <dimen name="space_xxxlarge">72dp</dimen>
+
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_big">32sp</dimen>
+
+    <dimen name="radius_small">12dp</dimen>
+    <dimen name="radius_xsmall">8dp</dimen>
+
+    <dimen name="button_standard">48dp</dimen>
+    <dimen name="icon_standard">56dp</dimen>
+    <dimen name="spinner_flag_size">24dp</dimen>
+    <dimen name="radius_xxsmall">6dp</dimen>
+    <dimen name="space_button_country">22dp</dimen>
+
+    <dimen name="width_edit_text_code_button">48dp</dimen>
+    <dimen name="height_edit_text_code_button">48dp</dimen>
+    <dimen name="space_large_negative">-18dp</dimen>
+    <dimen name="loadingBar_size">48dp</dimen>
+    <dimen name="feat_spinner_max_height">168dp</dimen>
+
+</resources>

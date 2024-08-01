@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".authentication.views.SignUpVerificationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:padding="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/icon"
+        style="@style/ParkingApp.Widget.AppIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feat_login_appName"
+        android:textAppearance="@style/ParkingApp.TextStyle.AppName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon" />
+
+    <TextView
+        android:id="@+id/signup"
+        style="@style/ParkingApp.Widget.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feat_signup_signup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appName" />
+
+    <TextView
+        android:id="@+id/enterCode"
+        style="@style/ParkingApp.Widget.HelperTextView"
+        android:text="@string/feat_signup_enterCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signup" />
+
+    <LinearLayout
+        android:id="@+id/layoutOtpCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
+        android:layout_marginStart="@dimen/space_large"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enterCode">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox1"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionNext" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox2"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionNext" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox3"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionNext" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox4"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionDone" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox5"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionNext" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeBox6"
+            style="@style/ParkingApp.Widget.EditText"
+            android:imeOptions="actionDone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/resendCodeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/space_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutOtpCode">
+
+        <TextView
+            android:id="@+id/resendCode1"
+            style="@style/ParkingApp.TextStyle.Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_large"
+            android:text="@string/feat_signup_resend_code" />
+
+        <TextView
+            android:id="@+id/resendCode2"
+            style="@style/ParkingApp.TextStyle.Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feat_signup_resend_code_timer" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/continueSignUpButton"
+        style="@style/ParkingApp.Widget.Button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_standard"
+        android:layout_marginTop="@dimen/space_xxlarge"
+        android:elevation="0dp"
+        android:text="@string/feat_signup_continue"
+        app:layout_constraintTop_toBottomOf="@id/resendCodeMessage"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>
