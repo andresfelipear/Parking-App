@@ -15,7 +15,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.vancouverparking.parkingapp2.R
 import com.vancouverparking.parkingapp2.authentication.viewmodels.ForgotPasswordState
 import com.vancouverparking.parkingapp2.authentication.viewmodels.ForgotPasswordViewModel
-import com.vancouverparking.parkingapp2.authentication.viewmodels.LoginState
 import com.vancouverparking.parkingapp2.databinding.ActivityForgotPasswordBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

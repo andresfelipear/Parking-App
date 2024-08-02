@@ -1,6 +1,12 @@
 pluginManagement {
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -15,5 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ParkingApp2"
 include(":app")
-include(":dashboard")
-include(":app:dashboard")

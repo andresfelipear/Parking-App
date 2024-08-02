@@ -1,9 +1,9 @@
 plugins {
+    kotlin("android")
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.gms.google-services")
-    kotlin("kapt")
+    id("kotlin-parcelize")
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -50,28 +50,16 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    //Image use and optimization
-    implementation("com.github.bumptech.glide:glide:4.15.0")
-    implementation("androidx.activity:activity-ktx:1.8.2")
+    api(Dependencies.AndroidX.viewModel)
+    api(Dependencies.AndroidX.lifecycleExtensions)
+    api(Dependencies.AndroidX.lifecycleViewmodel)
+    api(Dependencies.AndroidX.fragment)
+    hilt()
+    retrofit()
+    glide()
+    room()
 
-    //Use http request okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
-
-    //http request retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-
-    annotationProcessor("com.github.bumptech.glide:compiler:4.15.0")
-
-    //Local database
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-common:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
+    //Local database ROOM
 
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
